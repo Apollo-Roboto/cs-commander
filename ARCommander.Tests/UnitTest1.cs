@@ -7,7 +7,7 @@ namespace ARCommander.Tests
 	public class UnitTest1
 	{
 		[Fact]
-		public void Test1()
+		public void RootOptionalArgumentCanBeRetrieved()
 		{
 			string[] args = "--name Alex".Split(" ");
 			

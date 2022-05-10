@@ -57,7 +57,7 @@ namespace ARCommander
 
 				if(arg.StartsWith("--"))
 				{
-					string name = arg.Substring(1, arg.Length-1).ToLower();
+					string name = arg.Substring(2, arg.Length-2).ToLower();
 					
 					string value = args[i+1];
 

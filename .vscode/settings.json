@@ -1,0 +1,3 @@
+{
+	"dotnet-test-explorer.testProjectPath": "./ARCommander.Tests/ARCMD.Tests.csproj",
+}
