@@ -1,47 +1,39 @@
 ﻿using System;
+using System.Reflection;
 using System.IO;
 using ARCommander;
 
 namespace App
 {
+	class RootCommand
+	{
+		[Parameter(
+			Name = "output",
+			Default = SupportedOutput.JSON,
+			Short = 'o'
+		)]
+		public SupportedOutput Output;
+		
+		[Positional("file", 0)]
+		public string File;
+	}
+
+	enum SupportedOutput
+	{
+		JSON, CSV, XML
+	}
+
 	class Program
 	{
 		static void Main(string[] args)
 		{
-			Commander cmd = new Commander();
 
-			cmd.AddArgument(new OptionalArgument{
-				Name="verbose",
-				Short='v',
-				Help="Write every logs.",
-				Type=typeof(bool),
-				Default=false,
-				Required=false,
-				Global=true,
-			});
+			var cmd = new Commander<RootCommand>();
 			
-			cmd.SetAction(pargs => {
-				Console.WriteLine("Root Action");
-			});
+			Utils.Info<RootCommand>();
 
+			RootCommand options = cmd.Parse(args);
 
-			Commander createCmd = cmd.AddSubCommand("create");
-			createCmd.SetAction(pargs => {
-				Console.WriteLine("Create Action");
-			});
-
-			Commander createFileCmd = createCmd.AddSubCommand("file");
-			createFileCmd.SetAction(pargs => {
-				Console.WriteLine($"Create File Action: file name is {pargs.Get(0)}");
-			});
-
-			Console.WriteLine("----------------------------");
-			Console.WriteLine("The commands are:\n");
-			Utils.PrintAllCommands(cmd);
-			Console.WriteLine("\n----------------------------");
-
-			Console.WriteLine("Execute output:\n");
-			cmd.Execute(args);
 		}
 	}
 }
