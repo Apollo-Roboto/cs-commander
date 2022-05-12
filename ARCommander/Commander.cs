@@ -32,7 +32,10 @@ namespace ARCommander
 					string name = arg.Substring(2);
 					string value = args[i+1];
 					Console.WriteLine($"Name is {name}, Value is {value}");
-					i ++;
+
+					AssignValue(options, name, value);
+
+					i++;
 					continue;
 
 					// find field that has attribute with this name and set the value
@@ -44,12 +47,15 @@ namespace ARCommander
 					string value = args[i+1];
 					Console.WriteLine($"Name is {name}, Value is {value}");
 
-					i ++;
+					AssignValue(options, name, value);
+
+					i++;
 					continue;
 					// find field that has attribute with this name and set the value
 				}
 
 				Console.WriteLine($"Value is {arg}");
+				AssignValue(options, i, arg);
 
 			}
 
@@ -57,7 +63,28 @@ namespace ARCommander
 
 			
 			// return (T)Activator.CreateInstance(typeof(T), new object[]{});
-			return (T)Activator.CreateInstance(typeof(T));
+			return options;
 		}
+
+		private void AssignValue(T options, string name, string value)
+		{
+			FieldInfo[] fields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance);
+			foreach(FieldInfo field in fields)
+			{
+				ParameterAttribute attr = field.GetCustomAttribute<ParameterAttribute>();
+
+				// if attribute name does not match the input, skip
+				if(attr.Name.ToLower() != name.ToLower()) continue;
+
+				// would curently only work if field is a string
+				field.SetValue(options, value);
+			}
+		}
+
+		private void AssignValue(T options, int position, string value)
+		{
+
+		}
+
 	}
 }
