@@ -6,17 +6,23 @@ namespace ARCommander
 	public class ParameterAttribute : System.Attribute
 	{
 		public string Name;
-		public object Default;
-		public char Short;
-		public bool Optional;
+		public char ShortName;
+		public bool Required = false;
 		public bool Global;
 		public string Help;
 		
 		public ParameterAttribute(){}
-		
-		public ParameterAttribute(string name)
+
+		public ParameterAttribute(string n)
 		{
-			this.Name = name;
+			this.Name = n;
 		}
+
+		public ParameterAttribute(string n, char s)
+		{
+			this.Name = n;
+			this.ShortName = s;
+		}
+
 	}
 }

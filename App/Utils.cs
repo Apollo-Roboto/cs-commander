@@ -49,7 +49,7 @@ namespace App
 			Console.WriteLine("\nParameter:");
 			foreach(ParameterAttribute attr in optionalAttributes)
 			{
-				Console.WriteLine($"  -{attr.Short} --{attr.Name,-15} {(attr.Optional ? "Optional" : "Required")}       Default: {attr.Default}");
+				Console.WriteLine($"  -{attr.ShortName} --{attr.Name,-15} {(attr.Required ? "Optional" : "Required")}");
 			}
 
 			Console.WriteLine("");

@@ -31,37 +31,27 @@ namespace ARCommander
 				{
 					string name = arg.Substring(2);
 					string value = args[i+1];
-					Console.WriteLine($"Name is {name}, Value is {value}");
 
 					AssignValue(options, name, value);
 
 					i++;
 					continue;
-
-					// find field that has attribute with this name and set the value
 				}
 
 				if(arg.StartsWith("-"))
 				{
-					string name = arg.Substring(1);
+					char shortName = arg.ToCharArray()[1];
 					string value = args[i+1];
-					Console.WriteLine($"Name is {name}, Value is {value}");
 
-					AssignValue(options, name, value);
+					AssignValue(options, shortName, value);
 
 					i++;
 					continue;
-					// find field that has attribute with this name and set the value
 				}
 
-				Console.WriteLine($"Value is {arg}");
 				AssignValue(options, i, arg);
 
 			}
-
-			// FieldInfo field = typeof(T).GetField("");
-
-			
 			// return (T)Activator.CreateInstance(typeof(T), new object[]{});
 			return options;
 		}
@@ -72,19 +62,117 @@ namespace ARCommander
 			foreach(FieldInfo field in fields)
 			{
 				ParameterAttribute attr = field.GetCustomAttribute<ParameterAttribute>();
+				if(attr == null) continue;
 
 				// if attribute name does not match the input, skip
 				if(attr.Name.ToLower() != name.ToLower()) continue;
 
-				// would curently only work if field is a string
-				field.SetValue(options, value);
+				object convertedValue = StringToTypedValue(value, field.FieldType);
+
+				field.SetValue(options, convertedValue);
+			}
+		}
+		
+		private void AssignValue(T options, char shortName, string value)
+		{
+			FieldInfo[] fields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance);
+			foreach(FieldInfo field in fields)
+			{
+				ParameterAttribute attr = field.GetCustomAttribute<ParameterAttribute>();
+				if(attr == null) continue;
+
+				// if attribute name does not match the input, skip
+				if(attr.ShortName != shortName) continue;
+
+				object convertedValue = StringToTypedValue(value, field.FieldType);
+
+				field.SetValue(options, convertedValue);
 			}
 		}
 
 		private void AssignValue(T options, int position, string value)
 		{
+			FieldInfo[] fields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance);
+			foreach(FieldInfo field in fields)
+			{
+				PositionalAttribute attr = field.GetCustomAttribute<PositionalAttribute>();
+				if(attr == null) continue;
 
+				// if attribute name does not match the input, skip
+				if(attr.Position != position) continue;
+
+				object convertedValue = StringToTypedValue(value, field.FieldType);
+
+				field.SetValue(options, convertedValue);
+			}
 		}
 
+		private object StringToTypedValue(string value, Type type)
+		{
+			// System.FormatException will be thrown on inparsable string
+			// System.OverflowException will be thrown on large values
+
+			switch(Type.GetTypeCode(type))
+			{
+				case TypeCode.String:
+					return value;
+
+				case TypeCode.Boolean:
+					if(value.Equals("1"))
+						return true;
+
+					if(value.Equals("0"))
+						return false;
+						
+					return bool.Parse(value);
+
+				case TypeCode.Char:
+					return Char.Parse(value);
+
+				case TypeCode.Decimal:
+					return Decimal.Parse(value);
+
+				case TypeCode.Double:
+					return double.Parse(value);
+
+				case TypeCode.Single: // includes float
+					return Single.Parse(value);
+
+				case TypeCode.Byte:
+					return byte.Parse(value);
+
+				case TypeCode.DateTime:
+					return DateTime.Parse(value);
+
+				case TypeCode.Int16: // includes short
+					return Int16.Parse(value);
+
+				case TypeCode.Int32: // includes int and enum
+				
+					if(type.IsEnum)
+						return Enum.Parse(type, value, true);
+
+					return Int32.Parse(value);
+
+				case TypeCode.Int64: // include long
+					return Int64.Parse(value);
+
+				case TypeCode.UInt16: // include ushort
+					return UInt16.Parse(value);
+					
+				case TypeCode.UInt32: // include uint
+					return UInt32.Parse(value);
+
+				case TypeCode.UInt64: // include ulong
+					return UInt64.Parse(value);
+
+				default:
+					// custom type interface here whenever I figure that out
+					// IParsable thing = (IParsable)field.FieldType;
+					// return (T)Activator.CreateInstance(typeof(T), new object[]{});
+
+					throw new NotSupportedException($"Cannot convert string '{value}' to type '{type.FullName}'.\nImplement interface blah for custom types.");
+			}
+		}
 	}
 }
