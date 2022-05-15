@@ -9,12 +9,8 @@ namespace ARCommander
 	{
 		// private List<OptionalAttribute> OptionalAttributes;
 		// private List<PositionalAttribute> PositionalAttributes;
-		private Type OptionsType;
 
-		public Commander()
-		{
-			
-		}
+		public Commander(){}
 
 		public T Parse(string[] args)
 		{
@@ -22,13 +18,15 @@ namespace ARCommander
 
 			// https://stackoverflow.com/questions/31342882/assigning-field-values-to-generic-type
 
-
 			for(int i = 0; i < args.Length; i++)
 			{
 				string arg = args[i];
 
+				// find parameter by Name
 				if(arg.StartsWith("--"))
 				{
+					if(i+1 >= args.Length) throw new ParsingException("Inconsistant use of parameters and values.");
+
 					string name = arg.Substring(2);
 					string value = args[i+1];
 
@@ -38,10 +36,12 @@ namespace ARCommander
 					continue;
 				}
 
+				// find parameter by ShortName
 				if(arg.StartsWith("-"))
 				{
 					char shortName = arg.ToCharArray()[1];
 					string value = args[i+1];
+					if(i+1 >= args.Length) throw new ParsingException("Inconsistant use of parameters and values.");
 
 					AssignValue(options, shortName, value);
 
@@ -49,10 +49,10 @@ namespace ARCommander
 					continue;
 				}
 
+				// no parameter means positional
 				AssignValue(options, i, arg);
-
 			}
-			// return (T)Activator.CreateInstance(typeof(T), new object[]{});
+
 			return options;
 		}
 
@@ -70,7 +70,9 @@ namespace ARCommander
 				object convertedValue = StringToTypedValue(value, field.FieldType);
 
 				field.SetValue(options, convertedValue);
+				return;
 			}
+			throw new ArgumentException($"Unknown argument --{name}");
 		}
 		
 		private void AssignValue(T options, char shortName, string value)
@@ -87,7 +89,9 @@ namespace ARCommander
 				object convertedValue = StringToTypedValue(value, field.FieldType);
 
 				field.SetValue(options, convertedValue);
+				return;
 			}
+			throw new ArgumentException($"Unknown argument -{shortName}");
 		}
 
 		private void AssignValue(T options, int position, string value)
@@ -104,7 +108,10 @@ namespace ARCommander
 				object convertedValue = StringToTypedValue(value, field.FieldType);
 
 				field.SetValue(options, convertedValue);
+				return;
 			}
+
+			throw new ArgumentException($"No argument at position {position}");
 		}
 
 		private object StringToTypedValue(string value, Type type)

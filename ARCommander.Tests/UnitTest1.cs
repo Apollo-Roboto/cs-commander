@@ -183,12 +183,12 @@ namespace ARCommander.Tests
 			});
 		}
 
-		[Fact(Skip="No exception defined yet")]
+		[Fact]
 		public void TestInvalidParameter()
 		{
 			Commander<SimpleRequiredParameter> commander = new Commander<SimpleRequiredParameter>();
 
-			Assert.Throws<Exception>(() => {
+			Assert.Throws<ArgumentException>(() => {
 				SimpleRequiredParameter options = commander.Parse(new string[]{"--asd", "asd"});
 			});
 		}

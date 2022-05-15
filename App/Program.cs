@@ -5,14 +5,16 @@ using ARCommander;
 
 namespace App
 {
+	#pragma warning disable 0649
 	class RootCommand
 	{
 		[Parameter("output", 'o')]
-		public SupportedOutput Output;
+		public SupportedOutput Output = SupportedOutput.JSON;
 
 		[Positional("file", 0)]
 		public string File;
 	}
+	#pragma warning restore 0649
 
 	enum SupportedOutput
 	{
