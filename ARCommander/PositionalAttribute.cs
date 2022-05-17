@@ -8,8 +8,9 @@ namespace ARCommander
 		public string Name;
 		public int Position;
 		public string Help;
+		public bool Required;
 		
-		public PositionalAttribute(){}
+		public PositionalAttribute() { }
 		
 		public PositionalAttribute(string name, int position)
 		{

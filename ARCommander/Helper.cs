@@ -1,13 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using ARCommander;
 
-namespace App
+namespace ARCommander
 {
-	public static class Utils
+	public class Helper
 	{
-		public static void Info<T>()
+		private static string Header()
+		{
+			return "";
+		}
+
+		private static string Footer()
+		{
+			return "";
+		}
+
+		public static void PrintHelp<T>()
 		{
 
 			List<ParameterAttribute> optionalAttributes = new List<ParameterAttribute>();

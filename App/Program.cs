@@ -11,8 +11,8 @@ namespace App
 		[Parameter("output", 'o')]
 		public SupportedOutput Output = SupportedOutput.JSON;
 
-		[Positional("file", 0)]
-		public string File;
+		[Positional("path", 0)]
+		public string Path;
 	}
 	#pragma warning restore 0649
 
@@ -25,17 +25,28 @@ namespace App
 	{
 		static void Main(string[] args)
 		{
-			// args = new string[]{"--output", "CSV"};
-
+			args = new string[]{"./out.json", "-o", "json"};
+			
 			var cmd = new Commander<RootCommand>();
 			
-			Utils.Info<RootCommand>();
-
 			RootCommand options = cmd.Parse(args);
-
-			Console.WriteLine($"Final value for Output is {options.Output}");
-			Console.WriteLine($"Final value for File is {options.File}");
-
+			
+			switch(options.Output)
+			{
+				case SupportedOutput.JSON:
+					string content = "{\"msg\":\"hello\"}";
+					File.WriteAllText(options.Path, content);
+					break;
+				case SupportedOutput.CSV:
+					File.WriteAllText(options.Path, "msg,hello");
+					break;
+				case SupportedOutput.XML:
+					File.WriteAllText(options.Path, "<msg>hello</msg>");
+					break;
+				case SupportedOutput.YAML:
+					File.WriteAllText(options.Path, "msg: hello");
+					break;
+			}
 		}
 	}
 }

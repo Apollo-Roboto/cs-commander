@@ -1,9 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	<Version>0.0.1</Version>
-	<AssemblyName>ARCommander</AssemblyName>
-	<TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<OutputType>Library</OutputType>
+
+		<AssemblyName>ARCommander</AssemblyName>
+		<PackageId>ARCommander</PackageId>
+		<Version>0.0.1</Version>
+		
+		<PackageTitle>ARCommander</PackageTitle>
+		<Title>ARCommander</Title>
+		<Description>ARCommander is a command line parser for .NET Core.</Description>
+		<Authors>Apollo-Roboto</Authors>
+		<PackageProjectUrl>https://github.com/Apollo-Roboto/ARCommander</PackageProjectUrl>
+		<PackageTags>CLI;Command Parser;Command Line Parser;Terminal</PackageTags>
+		<Copyright>Copyright © 2022 | Apollo-Roboto</Copyright>
+		<!-- <PackageLicenseFile>License.md</PackageLicenseFile> -->
+		<!-- <PackageIcon>something.png</PackageIcon> -->
+		<!-- <PackageReleaseNotes>README.md</PackageReleaseNotes> -->
+	</PropertyGroup>
 
 </Project>
