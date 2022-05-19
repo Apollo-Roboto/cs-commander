@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using Moq;
 
 namespace ARCommander.Tests
 {
@@ -8,6 +9,7 @@ namespace ARCommander.Tests
 		[Fact(Skip="not implemented")]
 		public void TestHelpWhenNoArg()
 		{
+			var helperMock = new Mock<Helper>();
 			
 		}
 	}

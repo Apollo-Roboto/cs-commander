@@ -11,31 +11,53 @@ namespace ARCommander
 		// private List<PositionalAttribute> PositionalAttributes;
 
 		public Commander(){}
+		public void ShowHelp()
+		{
+			Helper.PrintHelp<T>();
+			Environment.Exit(0);
+		}
+		public void ShowHelp(Exception e)
+		{
+			Console.WriteLine(e.Message);
+			Helper.PrintHelp<T>();
+			Environment.Exit(1);
+		}
 
 		public T Parse(string[] args)
 		{
 			// this should probably show the help when an exception occurs
+
+			if(args.Length > 0 && (args[0] == "--help" || args[0] == "-h"))
+			{
+				ShowHelp();
+			}
+
 			try
 			{
 				return new Parser<T>().Parse(args);
 			}
-			catch (NoArgumentException e)
+			catch(NoArgumentException e)
 			{
-				throw e;
+				ShowHelp(e);
 			}
-			catch (FormatException e)
+			catch(FormatException e)
 			{
-				throw new ParsingException(e.Message, e);
+				ShowHelp(e);
 			}
 			catch(OverflowException e)
 			{
-				throw new ParsingException(e.Message, e);
+				ShowHelp(e);
 			}
 			catch(ArgumentException e)
 			{
-				throw e;
+				ShowHelp(e);
 			}
-		}
+			catch(ParsingException e)
+			{
+				ShowHelp(e);
+			}
 
+			return new T();
+		}
 	}
 }

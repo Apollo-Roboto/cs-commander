@@ -68,8 +68,8 @@ namespace ARCommander
 				}
 			}
 
-			// if(position < NumberOfRequiredPositional())
-			// 	throw new ArgumentException("Missing Required Positional");
+			if(position < NumberOfRequiredPositional())
+				throw new MissingArgumentException("Missing Required Positional");
 
 			return options;
 		}

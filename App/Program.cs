@@ -11,7 +11,7 @@ namespace App
 		[Parameter("output", 'o')]
 		public SupportedOutput Output = SupportedOutput.JSON;
 
-		[Positional("path", 0)]
+		[Positional("path", 0, Required=true)]
 		public string Path;
 	}
 	#pragma warning restore 0649
@@ -25,7 +25,7 @@ namespace App
 	{
 		static void Main(string[] args)
 		{
-			args = new string[]{"./out.json", "-o", "json"};
+			// args = new string[]{"./out.json", "-o", "json"};
 			
 			var cmd = new Commander<RootCommand>();
 			
