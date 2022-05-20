@@ -2,7 +2,7 @@ using System;
 
 namespace ARCommander
 {
-	public class NoArgumentException : Exception
+	public class NoArgumentException : ParsingException
 	{
 		public NoArgumentException() : base() { }
 		public NoArgumentException(string message) : base(message) { }

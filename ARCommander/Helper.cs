@@ -45,8 +45,6 @@ namespace ARCommander
 				}
 			}
 
-			Console.WriteLine($"{fieldInfos.Length} field{(fieldInfos.Length > 1 ? "s" : "")}");
-
 			Console.WriteLine("USAGE: App <command> [subcommand] [argument] [flags]");
 
 			Console.WriteLine("\nPositional:");

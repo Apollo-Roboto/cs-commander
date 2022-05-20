@@ -2,7 +2,7 @@ using System;
 
 namespace ARCommander
 {
-	public class MissingArgumentException : Exception
+	public class MissingArgumentException : ParsingException
 	{
 		public MissingArgumentException() : base() { }
 		public MissingArgumentException(string message) : base(message) { }

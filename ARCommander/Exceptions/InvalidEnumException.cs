@@ -2,7 +2,7 @@ using System;
 
 namespace ARCommander
 {
-	public class InvalidEnumException : Exception
+	public class InvalidEnumException : ParsingException
 	{
 		public string Suggestion;
 		public InvalidEnumException() : base() { }

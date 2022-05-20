@@ -79,7 +79,7 @@ namespace ARCommander.Tests
 		{
 			Parser<TestClasses.SimpleRequiredParameter> parser = new Parser<TestClasses.SimpleRequiredParameter>();
 
-			Assert.Throws<ArgumentException>(() => {
+			Assert.Throws<ParsingException>(() => {
 				TestClasses.SimpleRequiredParameter options = parser.Parse(new string[]{"--asd", "asd"});
 			});
 		}

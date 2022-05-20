@@ -11,17 +11,16 @@ namespace ARCommander
 			int required = 0;
 
 			FieldInfo[] fields = typeof(T).GetFields();
-			foreach(FieldInfo field in fields)
+			foreach (FieldInfo field in fields)
 			{
 				PositionalAttribute attr = field.GetCustomAttribute<PositionalAttribute>();
-				if(attr == null) continue;
+				if (attr == null) continue;
 
-				if(attr.Required == true)
+				if (attr.Required == true)
 					required++;
 			}
 			return required;
 		}
-
 
 		public T Parse(string[] args)
 		{
@@ -77,51 +76,51 @@ namespace ARCommander
 		private void AssignValue(T options, string name, string value)
 		{
 			FieldInfo[] fields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance);
-			foreach(FieldInfo field in fields)
+			foreach (FieldInfo field in fields)
 			{
 				ParameterAttribute attr = field.GetCustomAttribute<ParameterAttribute>();
-				if(attr == null) continue;
+				if (attr == null) continue;
 
 				// if attribute name does not match the input, skip
-				if(attr.Name.ToLower() != name.ToLower()) continue;
+				if (attr.Name.ToLower() != name.ToLower()) continue;
 
 				object convertedValue = StringToTypedValue(value, field.FieldType);
 
 				field.SetValue(options, convertedValue);
 				return;
 			}
-			throw new ArgumentException($"Unknown argument --{name}");
+			throw new ParsingException($"Unknown argument --{name}");
 		}
-		
+
 		private void AssignValue(T options, char shortName, string value)
 		{
 			FieldInfo[] fields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance);
-			foreach(FieldInfo field in fields)
+			foreach (FieldInfo field in fields)
 			{
 				ParameterAttribute attr = field.GetCustomAttribute<ParameterAttribute>();
-				if(attr == null) continue;
+				if (attr == null) continue;
 
 				// if attribute name does not match the input, skip
-				if(attr.ShortName != shortName) continue;
+				if (attr.ShortName != shortName) continue;
 
 				object convertedValue = StringToTypedValue(value, field.FieldType);
 
 				field.SetValue(options, convertedValue);
 				return;
 			}
-			throw new ArgumentException($"Unknown argument -{shortName}");
+			throw new ParsingException($"Unknown argument -{shortName}");
 		}
 
 		private void AssignValue(T options, int position, string value)
 		{
 			FieldInfo[] fields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance);
-			foreach(FieldInfo field in fields)
+			foreach (FieldInfo field in fields)
 			{
 				PositionalAttribute attr = field.GetCustomAttribute<PositionalAttribute>();
-				if(attr == null) continue;
+				if (attr == null) continue;
 
 				// if attribute name does not match the input, skip
-				if(attr.Position != position) continue;
+				if (attr.Position != position) continue;
 
 				object convertedValue = StringToTypedValue(value, field.FieldType);
 
@@ -129,7 +128,7 @@ namespace ARCommander
 				return;
 			}
 
-			throw new ArgumentException($"No argument at position {position}");
+			throw new ParsingException($"No argument at position {position}");
 		}
 
 		private object StringToTypedValue(string value, Type type)
@@ -137,18 +136,18 @@ namespace ARCommander
 			// System.FormatException will be thrown on inparsable string
 			// System.OverflowException will be thrown on large values
 
-			switch(Type.GetTypeCode(type))
+			switch (Type.GetTypeCode(type))
 			{
 				case TypeCode.String:
 					return value;
 
 				case TypeCode.Boolean:
-					if(value.Equals("1"))
+					if (value.Equals("1"))
 						return true;
 
-					if(value.Equals("0"))
+					if (value.Equals("0"))
 						return false;
-						
+
 					return bool.Parse(value);
 
 				case TypeCode.Char:
@@ -173,10 +172,16 @@ namespace ARCommander
 					return Int16.Parse(value);
 
 				case TypeCode.Int32: // includes int and enum
-				
-					if(type.IsEnum)
-						// throw InvalidEnumException with suggestion if not valid
-						return Enum.Parse(type, value, true);
+
+					if (type.IsEnum)
+						try
+						{
+							return Enum.Parse(type, value, true);
+						}
+						catch (ArgumentException e)
+						{
+							throw new InvalidEnumException($"'{value}' is invalid.", e);
+						}
 
 					return Int32.Parse(value);
 
@@ -185,7 +190,7 @@ namespace ARCommander
 
 				case TypeCode.UInt16: // include ushort
 					return UInt16.Parse(value);
-					
+
 				case TypeCode.UInt32: // include uint
 					return UInt32.Parse(value);
 

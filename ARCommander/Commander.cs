@@ -11,14 +11,16 @@ namespace ARCommander
 		// private List<PositionalAttribute> PositionalAttributes;
 
 		public Commander(){}
+
 		public void ShowHelp()
 		{
 			Helper.PrintHelp<T>();
 			Environment.Exit(0);
 		}
+
 		public void ShowHelp(Exception e)
 		{
-			Console.WriteLine(e.Message);
+			Console.WriteLine($"\n  ==> {e.Message} <==  \n");
 			Helper.PrintHelp<T>();
 			Environment.Exit(1);
 		}
@@ -36,7 +38,7 @@ namespace ARCommander
 			{
 				return new Parser<T>().Parse(args);
 			}
-			catch(NoArgumentException e)
+			catch(ParsingException e)
 			{
 				ShowHelp(e);
 			}
@@ -49,10 +51,6 @@ namespace ARCommander
 				ShowHelp(e);
 			}
 			catch(ArgumentException e)
-			{
-				ShowHelp(e);
-			}
-			catch(ParsingException e)
 			{
 				ShowHelp(e);
 			}
