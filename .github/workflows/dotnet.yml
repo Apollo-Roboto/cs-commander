@@ -18,6 +18,6 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Build
-      run: dotnet build .\ARCommander\ARCommander.csproj
+      run: dotnet build ./ARCommander/ARCommander.csproj
     - name: Test
-      run: dotnet test .\ARCommander.Tests\ARCommander.Tests.csproj --verbosity normal
+      run: dotnet test ./ARCommander.Tests/ARCommander.Tests.csproj --verbosity normal
