@@ -20,4 +20,10 @@ jobs:
     - name: Build
       run: dotnet build ./ARCommander/ARCommander.csproj
     - name: Test
-      run: dotnet test ./ARCommander.Tests/ARCommander.Tests.csproj --verbosity normal
+      run: dotnet test ./ARCommander.Tests/ARCommander.Tests.csproj --logger:"liquid.md;LogFileName=${{ github.workspace }}/TestResults;Title=TestResults;"
+    - name: Upload Tests Results
+      uses: actions/upload-artifact@v2
+      if: ${{ always() }}
+      with:
+        name: 'Test Run'
+        path: ${{ github.workspace }}/TestsResults
