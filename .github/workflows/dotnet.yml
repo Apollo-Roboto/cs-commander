@@ -20,7 +20,7 @@ jobs:
     - name: Build
       run: dotnet build ./ARCommander/ARCommander.csproj
     - name: Test
-      run: dotnet test ./ARCommander.Tests/ARCommander.Tests.csproj --logger:"trx;LogFileName=${{ github.workspace }}/TestResults;"
+      run: dotnet test ./ARCommander.Tests/ARCommander.Tests.csproj --logger:"trx;LogFileName=${{ github.workspace }}/TestsResults;"
     - name: Upload Tests Results
       uses: actions/upload-artifact@v2
       if: ${{ always() }}
