@@ -7,7 +7,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\ARCommander\ARCommander.csproj" />
+    <ProjectReference Include="..\ApolloRoboto.Commander\ApolloRoboto.Commander.csproj" />
   </ItemGroup>
 
 

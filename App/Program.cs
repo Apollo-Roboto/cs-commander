@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Reflection;
 using System.IO;
-using ARCommander;
+using ApolloRoboto.Commander;
 
 namespace App
 {
 	#pragma warning disable 0649
 	class RootCommand
 	{
-		[Parameter("output", 'o')]
+		[Parameter("output", 'o', Help="Output format")]
 		public SupportedOutput Output = SupportedOutput.JSON;
 
-		[Positional("path", 0, Required=true)]
+		[Positional("path", 0, Required=true, Help="Path to the file")]
 		public string Path;
 	}
 	#pragma warning restore 0649

@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace ARCommander.Tests
+namespace ApolloRoboto.Commander.Tests
 {
 	public class HelperTest
 	{

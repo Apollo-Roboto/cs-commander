@@ -4,20 +4,20 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<OutputType>Library</OutputType>
 
-		<AssemblyName>ARCommander</AssemblyName>
-		<PackageId>ARCommander</PackageId>
-		<Version>0.0.2</Version>
+		<AssemblyName>ApolloRoboto.Commander</AssemblyName>
+		<PackageId>ApolloRoboto.Commander</PackageId>
+		<Version>0.1.0</Version>
 		
-		<PackageTitle>ARCommander</PackageTitle>
-		<Title>ARCommander</Title>
-		<Description>ARCommander is a command line parser for .NET Core.</Description>
+		<PackageTitle>ApolloRoboto.Commander</PackageTitle>
+		<Title>ApolloRoboto.Commander</Title>
+		<Description>ApolloRoboto.Commander is a command line parser for .NET Core.</Description>
 		<Authors>Apollo-Roboto</Authors>
-		<PackageProjectUrl>https://github.com/Apollo-Roboto/ARCommander</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Apollo-Roboto/ApolloRoboto.Commander</PackageProjectUrl>
 		<PackageTags>CLI;Command Parser;Command Line Parser;Terminal</PackageTags>
 		<Copyright>Copyright © 2022 | Apollo-Roboto</Copyright>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<!-- <PackageIcon>something.png</PackageIcon> -->
 		<PackageReleaseNotes>README.md</PackageReleaseNotes>
+		<!-- <PackageIcon>something.png</PackageIcon> -->
 	</PropertyGroup>
 
 	<ItemGroup>

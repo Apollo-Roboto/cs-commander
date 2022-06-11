@@ -1,6 +1,6 @@
 using System;
 
-namespace ARCommander.Tests
+namespace ApolloRoboto.Commander.Tests
 {
 	static class TestClasses
 	{

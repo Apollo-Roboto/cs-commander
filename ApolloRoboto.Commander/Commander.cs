@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ARCommander
+namespace ApolloRoboto.Commander
 {
 	public class Commander<T> where T : new()
 	{

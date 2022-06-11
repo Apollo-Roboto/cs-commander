@@ -1,8 +1,8 @@
 using System;
 using Xunit;
-using ARCommander;
+using ApolloRoboto.Commander;
 
-namespace ARCommander.Tests
+namespace ApolloRoboto.Commander.Tests
 {
 	public class ParserTest
 	{

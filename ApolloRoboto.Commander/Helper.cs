@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace ARCommander
+namespace ApolloRoboto.Commander
 {
 	public class Helper
 	{
@@ -24,8 +24,6 @@ namespace ARCommander
 
 			// get the fields
 			FieldInfo[] fieldInfos = typeof(T).GetFields(BindingFlags.Instance | BindingFlags.Public);
-
-			
 			
 			// for each field, add corresponding option|positional
 			foreach(FieldInfo fieldInfo in fieldInfos)

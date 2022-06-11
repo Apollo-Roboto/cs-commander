@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using Moq;
 
-namespace ARCommander.Tests
+namespace ApolloRoboto.Commander.Tests
 {
 	public class CommanderTest
 	{

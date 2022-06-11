@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace ARCommander
+namespace ApolloRoboto.Commander
 {
 	public class Parser<T> where T : new()
 	{

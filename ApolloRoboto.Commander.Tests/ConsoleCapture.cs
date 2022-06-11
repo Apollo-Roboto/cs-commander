@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace ARCommander.Tests
+namespace ApolloRoboto.Commander.Tests
 {
 	public class ConsoleCapture : TextWriter
 	{

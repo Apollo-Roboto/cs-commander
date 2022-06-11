@@ -1,6 +1,6 @@
 using System;
 
-namespace ARCommander
+namespace ApolloRoboto.Commander
 {
 	public class InputArgument
 	{
