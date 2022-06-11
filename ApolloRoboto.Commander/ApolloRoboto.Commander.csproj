@@ -6,7 +6,7 @@
 
 		<AssemblyName>ApolloRoboto.Commander</AssemblyName>
 		<PackageId>ApolloRoboto.Commander</PackageId>
-		<Version>0.1.0</Version>
+		<Version>0.1.1</Version>
 		
 		<PackageTitle>ApolloRoboto.Commander</PackageTitle>
 		<Title>ApolloRoboto.Commander</Title>
