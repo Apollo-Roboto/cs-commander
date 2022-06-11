@@ -12,7 +12,8 @@
 		<Title>ApolloRoboto.Commander</Title>
 		<Description>ApolloRoboto.Commander is a command line parser for .NET Core.</Description>
 		<Authors>Apollo-Roboto</Authors>
-		<PackageProjectUrl>https://github.com/Apollo-Roboto/ApolloRoboto.Commander</PackageProjectUrl>
+		<!-- <PackageProjectUrl>https://github.com/Apollo-Roboto/ApolloRoboto.Commander</PackageProjectUrl> -->
+		<RepositoryUrl>https://github.com/Apollo-Roboto/ApolloRoboto.Constants</RepositoryUrl>
 		<PackageTags>CLI;Command Parser;Command Line Parser;Terminal</PackageTags>
 		<Copyright>Copyright © 2022 | Apollo-Roboto</Copyright>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
