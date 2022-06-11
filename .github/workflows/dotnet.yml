@@ -32,6 +32,7 @@ jobs:
   publish:
     name: C# Publish to Nuget
     runs-on: ubuntu-latest
+    if: ${{ success() }}
 
     steps:
       - uses: actions/checkout@v3
