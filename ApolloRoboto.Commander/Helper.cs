@@ -48,13 +48,13 @@ namespace ApolloRoboto.Commander
 			Console.WriteLine("\nPositional:");
 			foreach(PositionalAttribute attr in positionalAttributes)
 			{
-				Console.WriteLine($"  {attr.Position,2} {attr.Name,-15}");
+				Console.WriteLine($"  {attr.Position,2} {attr.Name,-15}                                          {attr.Help}");
 			}
 
 			Console.WriteLine("\nParameter:");
 			foreach(ParameterAttribute attr in optionalAttributes)
 			{
-				Console.WriteLine($"  -{attr.ShortName} --{attr.Name,-15} {(attr.Required ? "Optional" : "Required")}");
+				Console.WriteLine($"  -{attr.ShortName} --{attr.Name,-15} {(attr.Required ? "Optional" : "Required")}                               {attr.Help}");
 			}
 
 			Console.WriteLine("");
