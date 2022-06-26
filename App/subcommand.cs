@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using System.IO;
 using ApolloRoboto.Commander;
@@ -13,8 +13,16 @@ namespace App
 		[Positional("path", 0, Required=true, Help="Path to the file")]
 		public string Path;
 
+		[SubCommand("validate")]
+		public Validate ValidateCommand;
 	}
-	
+
+	class ValidateCommand
+	{
+		[Positional("path", 0, Required=true, Help="Path to the file to validate")]
+		public string Path;
+	}
+
 	enum SupportedOutput
 	{
 		JSON, CSV, XML, YAML
@@ -30,21 +38,9 @@ namespace App
 			
 			RootCommand options = cmd.Parse(args);
 			
-			switch(options.Output)
+			if(options.Validate != null)
 			{
-				case SupportedOutput.JSON:
-					string content = "{\"msg\":\"hello\"}";
-					File.WriteAllText(options.Path, content);
-					break;
-				case SupportedOutput.CSV:
-					File.WriteAllText(options.Path, "msg,hello");
-					break;
-				case SupportedOutput.XML:
-					File.WriteAllText(options.Path, "<msg>hello</msg>");
-					break;
-				case SupportedOutput.YAML:
-					File.WriteAllText(options.Path, "msg: hello");
-					break;
+				Console.WriteLine($"SubCommand Validate called with {options.Validate.Path}.")
 			}
 		}
 	}
