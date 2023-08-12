@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<OutputType>Library</OutputType>
 
 		<AssemblyName>ApolloRoboto.Commander</AssemblyName>
 		<PackageId>ApolloRoboto.Commander</PackageId>
-		<Version>0.1.1</Version>
-		
+		<Version>0.2.0</Version>
+
 		<PackageTitle>ApolloRoboto.Commander</PackageTitle>
 		<Title>ApolloRoboto.Commander</Title>
 		<Description>ApolloRoboto.Commander is a command line parser for .NET Core.</Description>

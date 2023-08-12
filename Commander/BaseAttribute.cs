@@ -2,8 +2,8 @@ using System;
 
 namespace ApolloRoboto.Commander
 {
-	[System.AttributeUsage(System.AttributeTargets.Field)]
-	public abstract class BaseAttribute : System.Attribute
+	[AttributeUsage(AttributeTargets.Field, AllowMultiple=false)]
+	public abstract class BaseAttribute : Attribute
 	{
 		/// <summary>
 		/// The name of the Argument. Used as parameter name and documentation.

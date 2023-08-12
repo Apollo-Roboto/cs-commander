@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Build
+      run: dotnet build
+
+    - name: Test
+      run: dotnet test --logger:"trx;LogFileName=${{ github.workspace }}/TestsResults;"
+
+    - name: Upload Tests Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'Test Run'
+        path: ${{ github.workspace }}/TestsResults

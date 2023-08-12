@@ -19,7 +19,7 @@ namespace ApolloRoboto.Commander
 		public static void PrintHelp<T>()
 		{
 
-			List<ParameterAttribute> optionalAttributes = new List<ParameterAttribute>();
+			List<ParameterAttribute> parameterAttributes = new List<ParameterAttribute>();
 			List<PositionalAttribute> positionalAttributes = new List<PositionalAttribute>();
 
 			// get the fields
@@ -31,7 +31,7 @@ namespace ApolloRoboto.Commander
 				ParameterAttribute optional = fieldInfo.GetCustomAttribute<ParameterAttribute>();
 				if(optional != null)
 				{
-					optionalAttributes.Add(optional);
+					parameterAttributes.Add(optional);
 					continue;
 				}
 
@@ -52,7 +52,7 @@ namespace ApolloRoboto.Commander
 			}
 
 			Console.WriteLine("\nParameter:");
-			foreach(ParameterAttribute attr in optionalAttributes)
+			foreach(ParameterAttribute attr in parameterAttributes)
 			{
 				Console.WriteLine($"  -{attr.ShortName} --{attr.Name,-15} {(attr.Required ? "Optional" : "Required")}                               {attr.Help}");
 			}
